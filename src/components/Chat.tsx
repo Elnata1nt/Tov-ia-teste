@@ -26,7 +26,6 @@ export function Chat() {
   const { messages, input, handleInputChange, handleSubmit } = useChat({
     api: "/api/chat",
   });
-  console.log("chave da api",process.env.OPENAI_API_KEY);
 
   return (
     <div className="flex min-h-screen bg-secondary-foreground items-center justify-center">
@@ -47,7 +46,7 @@ export function Chat() {
             </CardDescription>
           </div>
           <TooltipProvider>
-          <Tooltip>
+            <Tooltip>
               <TooltipTrigger asChild>
                 <Badge
                   variant="outline"
@@ -66,39 +65,35 @@ export function Chat() {
         <CardContent className="bg-accent">
           <ScrollArea className="h-[600px] w-full pr-4">
             {/* Renderizando as mensagens */}
-            {messages.map((message) => {
-              return (
-                <div
-                  key={message.id}
-                  className="flex mt-5 gap-3 text-slate-600 text-sm mb-3"
-                >
-                  {/* Renderizando o avatar com base no papel do usuário */}
-                  {message.role === "user" && (
-                    <Avatar>
-                      <AvatarFallback>DF</AvatarFallback>
-                      <AvatarImage src="https://github.com/Elnata1nt.png" />
-                    </Avatar>
-                  )}
+            {messages.map((message) => (
+              <div
+                key={message.id}
+                className="flex mt-5 gap-3 text-slate-600 text-sm mb-3"
+              >
+                {/* Renderizando o avatar com base no papel do usuário */}
+                {message.role === "user" && (
+                  <Avatar>
+                    <AvatarFallback>DF</AvatarFallback>
+                    <AvatarImage src="https://github.com/Elnata1nt.png" />
+                  </Avatar>
+                )}
 
-                  {message.role === "assistant" && (
-                    <Avatar>
-                      <AvatarFallback>RS</AvatarFallback>
-                      <AvatarImage src="https://github.com/rocketseat.png" />
-                      {/* /tov.png */}
-                    </Avatar>
-                  )}
+                {message.role === "assistant" && (
+                  <Avatar>
+                    <AvatarFallback>RS</AvatarFallback>
+                    <AvatarImage src="https://github.com/rocketseat.png" />
+                  </Avatar>
+                )}
 
-                  {/* Exibindo o conteúdo da mensagem */}
-                  <p className="leading-relaxed">
-                    <span className="block font-bold text-slate-700">
-                      {message.role === "user" ? "Usuário" : "AI"}:
-                    </span>
-                    {message.content || "No content"}{" "}
-                    {/* Garantia de que algo será exibido */}
-                  </p>
-                </div>
-              );
-            })}
+                {/* Exibindo o conteúdo da mensagem */}
+                <p className="leading-relaxed">
+                  <span className="block font-bold text-slate-700">
+                    {message.role === "user" ? "Usuário" : "AI"}:
+                  </span>
+                  {message.content || "No content"}
+                </p>
+              </div>
+            ))}
           </ScrollArea>
         </CardContent>
         <CardFooter className="mt-5">
